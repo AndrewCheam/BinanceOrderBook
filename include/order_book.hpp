@@ -14,7 +14,7 @@ struct PriceQuantity
 class OrderBook
 {
 public:
-    OrderBook(const std::string &symbol);
+    OrderBook(const std::string &symbol, const size_t &numLevels);
     void start();
     void printTopLevels(size_t n);
     void processWebSocketMessage(nlohmann::json &message);
@@ -27,6 +27,7 @@ private:
     std::string symbol;
     std::string url;
     std::string stream;
+    size_t numLevels;
     long lastUpdateId;
 
     std::vector<PriceQuantity> topBids;

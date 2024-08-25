@@ -7,10 +7,17 @@
 
 using json = nlohmann::json;
 
-OrderBook::OrderBook(const std::string &symbol) : m_webSocketClient(*this), symbol(symbol)
+OrderBook::OrderBook(const std::string &symbol, const size_t &numLevels) : m_webSocketClient(*this), symbol(symbol), numLevels(numLevels)
 {
     url = "https://api.binance.com/api/v3/depth?symbol=" + symbol + "&limit=1000";
-    stream = "wss://stream.binance.com:9443/ws/btcusdt@depth";
+    std::string low_symbol = "";
+
+    for (char ch : symbol)
+    {
+        // Convert each character to lowercase using tolower
+        low_symbol += tolower(ch);
+    }
+    stream = "wss://stream.binance.com:9443/ws/" + low_symbol + "@depth";
 }
 
 void OrderBook::start()
@@ -26,11 +33,8 @@ void OrderBook::connectWebSocket()
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        // std::cout << client.m_messages;
-        // printTopLevels();
     }
     m_webSocketClient.close();
-    // std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 std::string OrderBook::fetchSnapshot()
@@ -46,12 +50,22 @@ std::string OrderBook::fetchSnapshot()
     if (parsed_json.contains("bids"))
     {
         auto bids = parsed_json["bids"];
-        size_t limit = std::min(bids.size(), size_t(5));
-        for (size_t i = 0; i < limit; ++i)
+        // size_t limit = std::min(bids.size(), size_t(1000));
+        // for (size_t i = 0; i < limit; ++i)
+        // {
+        //     PriceQuantity pq;
+        //     pq.price = bids[i][0];    // Set the price attribute
+        //     pq.quantity = bids[i][1]; // Set the quantity attribute
+
+        //     // Add the object to the vector
+        //     topBids.push_back(pq);
+        // }
+
+        for (auto &bid : bids)
         {
             PriceQuantity pq;
-            pq.price = bids[i][0];    // Set the price attribute
-            pq.quantity = bids[i][1]; // Set the quantity attribute
+            pq.price = bid[0];    // Set the price attribute
+            pq.quantity = bid[1]; // Set the quantity attribute
 
             // Add the object to the vector
             topBids.push_back(pq);
@@ -62,20 +76,29 @@ std::string OrderBook::fetchSnapshot()
     if (parsed_json.contains("asks"))
     {
         auto asks = parsed_json["asks"];
-        size_t limit = std::min(asks.size(), size_t(5));
-        for (size_t i = 0; i < limit; ++i)
+        // size_t limit = std::min(asks.size(), size_t(1000));
+        // for (size_t i = 0; i < limit; ++i)
+        // {
+        //     PriceQuantity pq;
+        //     pq.price = asks[i][0];    // Set the price attribute
+        //     pq.quantity = asks[i][1]; // Set the quantity attribute
+
+        //     // Add the object to the vector
+        //     topAsks.push_back(pq);
+        // }
+        for (auto &ask : asks)
         {
             PriceQuantity pq;
-            pq.price = asks[i][0];    // Set the price attribute
-            pq.quantity = asks[i][1]; // Set the quantity attribute
+            pq.price = ask[0];    // Set the price attribute
+            pq.quantity = ask[1]; // Set the quantity attribute
 
             // Add the object to the vector
             topAsks.push_back(pq);
         }
     }
     lastUpdateId = parsed_json["lastUpdateId"];
-    std::cout << "THE VERY FIRST SNAPSHOT" << std::endl;
-    printTopLevels(20);
+    std::cout << "THE VERY FIRST SNAPSHOT (first 20)" << std::endl;
+    printTopLevels(numLevels);
     return response;
 }
 
@@ -149,7 +172,7 @@ void OrderBook::processWebSocketMessage(json &message)
     // Update lastUpdateId to the latest value
     lastUpdateId = message["u"];
     // update top bids and top asks
-    printTopLevels(5);
+    printTopLevels(numLevels);
 }
 
 #include <iomanip> // For std::setw and std::left

@@ -8,10 +8,13 @@
 int main()
 {
     std::string symbol;
+    size_t numLevels;
     std::cout << "Enter Binance symbol (e.g., BTCUSDT): ";
     std::cin >> symbol;
+    std::cout << "Enter Number of levels to print: ";
+    std::cin >> numLevels;
 
-    OrderBook orderBook(symbol);
+    OrderBook orderBook(symbol, numLevels);
     orderBook.start();
 
     return 0;
