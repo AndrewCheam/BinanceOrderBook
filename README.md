@@ -39,12 +39,6 @@ The purpose of this project is to demonstrate how to interact with Binance's API
 
 ### 5. **Code Structure**
 
-- **Overview of Key Files**: vnewirjfnwr
-- **Class and Function Documentation**: Provide descriptions for the main classes and functions, including their roles and any important implementation details.
-
-**Example:**
-
-```markdown
 ## Code Structure
 
 ### Files Overview
@@ -68,4 +62,3 @@ The purpose of this project is to demonstrate how to interact with Binance's API
 - **Purpose**: Makes an HTTP GET request to Binance's API to retrieve the initial order book snapshot.
 - **Parameters**: `string symbol` - The trading pair symbol (e.g., `BTCUSDT`).
 - **Returns**: A `json` object containing the snapshot data.
-```
