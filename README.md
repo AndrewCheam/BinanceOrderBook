@@ -24,8 +24,8 @@ The purpose of this project is to demonstrate how to interact with Binance's API
 
 2. **Install Dependencies**:
 
-   - Install `cURL`:
-   - Install `WebSocket++`:
+   - Install `cURL`
+   - Install `WebSocket++`
    - Install `nlohmann/json` (already downloaded as single include)
 
 3. **Compile the Code**:
@@ -36,3 +36,36 @@ The purpose of this project is to demonstrate how to interact with Binance's API
    ```sh
    .build/main
    ```
+
+### 5. **Code Structure**
+
+- **Overview of Key Files**: vnewirjfnwr
+- **Class and Function Documentation**: Provide descriptions for the main classes and functions, including their roles and any important implementation details.
+
+**Example:**
+
+```markdown
+## Code Structure
+
+### Files Overview
+
+- `main.cpp`: The main entry point of the application. It handles user input, initializes the order book, and manages the WebSocket connection.
+- `OrderBook.hpp` and `OrderBook.cpp`: Defines the `OrderBook` class, which manages the bid and ask levels.
+- `utils.cpp`: Contains utility functions for handling HTTP requests and JSON parsing.
+
+### Class and Function Descriptions
+
+#### `OrderBook` Class
+
+- **Purpose**: Manages the order book's bid and ask levels using two maps.
+- **Key Functions**:
+  - `void updateBid(double price, double quantity)`: Updates the bid price level.
+  - `void updateAsk(double price, double quantity)`: Updates the ask price level.
+  - `void printTopLevels()`: Prints the top 5 bid and ask levels.
+
+#### `fetchSnapshot()` Function
+
+- **Purpose**: Makes an HTTP GET request to Binance's API to retrieve the initial order book snapshot.
+- **Parameters**: `string symbol` - The trading pair symbol (e.g., `BTCUSDT`).
+- **Returns**: A `json` object containing the snapshot data.
+```
