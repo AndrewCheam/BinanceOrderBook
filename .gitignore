@@ -1,0 +1,72 @@
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.d
+
+# Compiled static libraries
+*.lib
+*.a
+
+# Compiled dynamic libraries
+*.dll
+*.so
+*.dylib
+
+# Executable files
+*.exe
+*.out
+*.app
+
+# Debug files
+*.log
+*.stackdump
+
+# Dependency directories
+/deps/
+/build/
+/cmake-build-*/
+
+# IDE-specific directories (e.g., VSCode, CLion)
+.vscode/
+.idea/
+.clangd/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Compiled python files
+*.pyc
+
+# Binaries
+bin/
+*.bin
+
+# CMake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore files created by ctags
+tags
+TAGS
+
+# Ignore other generated files
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore backup files created by editors
+*~
+*.bak
+*.orig
+*.swp
+*.swo
+
+# Ignore coverage files
+*.gcda
+*.gcno
+*.gcov
