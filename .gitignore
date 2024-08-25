@@ -47,7 +47,6 @@ bin/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-Makefile
 
 # Ignore files created by ctags
 tags
