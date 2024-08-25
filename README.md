@@ -37,8 +37,6 @@ The purpose of this project is to demonstrate how to interact with Binance's API
    .build/main
    ```
 
-### 5. **Code Structure**
-
 ## Code Structure
 
 ### Files Overview
@@ -46,7 +44,7 @@ The purpose of this project is to demonstrate how to interact with Binance's API
 - `main.cpp`: The main entry point of the application. It handles user input, initializes the order book, and manages the WebSocket connection.
 - `OrderBook.hpp` and `OrderBook.cpp`: Defines the `OrderBook` class, which manages the bid and ask levels.
 - `websocket_client.hpp` and `websocket_client.cpp`: Defines the `WebSocketClient` class, which manages the connection to the websocket and notifies the orderbook upon any update.
-- `http_client.cpp` and `http_client.hpp: Defines http functions to call the initial snapshot
+- `http_client.cpp` and `http_client.hpp`: Defines http functions to call the initial snapshot
 
 ### Class and Function Descriptions
 
