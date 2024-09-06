@@ -1,4 +1,3 @@
-// http_client.cpp
 #include <curl/curl.h>
 #include <string>
 #include <iostream>

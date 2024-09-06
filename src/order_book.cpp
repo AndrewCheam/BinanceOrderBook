@@ -4,6 +4,7 @@
 #include "json.hpp"
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 using json = nlohmann::json;
 
@@ -50,16 +51,6 @@ std::string OrderBook::fetchSnapshot()
     if (parsed_json.contains("bids"))
     {
         auto bids = parsed_json["bids"];
-        // size_t limit = std::min(bids.size(), size_t(1000));
-        // for (size_t i = 0; i < limit; ++i)
-        // {
-        //     PriceQuantity pq;
-        //     pq.price = bids[i][0];    // Set the price attribute
-        //     pq.quantity = bids[i][1]; // Set the quantity attribute
-
-        //     // Add the object to the vector
-        //     topBids.push_back(pq);
-        // }
 
         for (auto &bid : bids)
         {
@@ -76,16 +67,6 @@ std::string OrderBook::fetchSnapshot()
     if (parsed_json.contains("asks"))
     {
         auto asks = parsed_json["asks"];
-        // size_t limit = std::min(asks.size(), size_t(1000));
-        // for (size_t i = 0; i < limit; ++i)
-        // {
-        //     PriceQuantity pq;
-        //     pq.price = asks[i][0];    // Set the price attribute
-        //     pq.quantity = asks[i][1]; // Set the quantity attribute
-
-        //     // Add the object to the vector
-        //     topAsks.push_back(pq);
-        // }
         for (auto &ask : asks)
         {
             PriceQuantity pq;
@@ -171,15 +152,12 @@ void OrderBook::processWebSocketMessage(json &message)
 
     // Update lastUpdateId to the latest value
     lastUpdateId = message["u"];
-    // update top bids and top asks
     printTopLevels(numLevels);
 }
 
-#include <iomanip> // For std::setw and std::left
-
 void OrderBook::printTopLevels(size_t n)
 {
-    const int width = 15; // Adjust this width based on your needs
+    const int width = 15;
     const std::string separator = "+---------------+---------------+";
     const std::string header = "|     Price     |   Quantity    |";
 

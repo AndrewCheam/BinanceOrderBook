@@ -19,7 +19,6 @@ WebSocketClient::WebSocketClient(OrderBook &orderBook) : m_orderBook(orderBook)
     m_client.set_message_handler(websocketpp::lib::bind(&WebSocketClient::on_message, this, websocketpp::lib::placeholders::_1, websocketpp::lib::placeholders::_2));
     m_client.set_close_handler(websocketpp::lib::bind(&WebSocketClient::on_close, this, websocketpp::lib::placeholders::_1));
     m_client.set_fail_handler(websocketpp::lib::bind(&WebSocketClient::on_fail, this, websocketpp::lib::placeholders::_1));
-    // need to readjust this part to be dynamic
     m_client.set_tls_init_handler(websocketpp::lib::bind(&WebSocketClient::on_tls_init, this, "stream.binance.com:9443/ws/bnbbtc@depth", websocketpp::lib::placeholders::_1));
 
     m_client.set_access_channels(websocketpp::log::alevel::all);
@@ -29,7 +28,6 @@ WebSocketClient::WebSocketClient(OrderBook &orderBook) : m_orderBook(orderBook)
 
 void WebSocketClient::on_message(websocketpp::connection_hdl, websocketpp::client<websocketpp::config::asio_tls_client>::message_ptr msg)
 {
-    // std::cout << "Received message: " << msg->get_payload() << std::endl;
     nlohmann::json json_message = nlohmann::json::parse(msg->get_payload());
     m_messages.push_back(json_message);
     m_orderBook.processWebSocketMessage(json_message);
@@ -129,22 +127,3 @@ websocketpp::lib::shared_ptr<boost::asio::ssl::context> WebSocketClient::on_tls_
 
     return ctx;
 }
-
-// int main(int argc, char *argv[])
-// {
-//     WebSocketClient client;
-
-//     std::string uri = "wss://stream.binance.com:9443/ws/bnbbtc@depth";
-//     client.connect(uri);
-
-//     std::string message;
-//     while (true)
-//     {
-//         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-//     }
-
-//     client.close();
-//     std::this_thread::sleep_for(std::chrono::seconds(2));
-
-//     return 0;
-// }
