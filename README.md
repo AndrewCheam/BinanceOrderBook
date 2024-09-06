@@ -60,6 +60,6 @@ The purpose of this project is to demonstrate how to interact with Binance's API
 
 - **Purpose**: Connects to the websocket stream
 - **Key Functions**:
-  - `void on_message(websocketpp::connection_hdl hdl, websocketpp::client<websocketpp::config::asio_tls_client>::message_ptr msg) : Receives message payload from websocket connection and notifies orderbook to update the Bids and Asks.
+  - `void on_message(websocketpp::connection_hdl hdl, websocketpp::client<websocketpp::config::asio_tls_client>::message_ptr msg)` : Receives message payload from websocket connection and notifies orderbook to update the Bids and Asks.
   - `void updateAsk(double price, double quantity)`: Updates the ask price level.
   - `void printTopLevels()`: Prints the top 5 bid and ask levels.
